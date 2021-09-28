@@ -13,6 +13,7 @@ class PizzaCellView: UITableViewCell {
     @IBOutlet weak var pizzaLabel: UILabel!
     @IBOutlet weak var pizzaPrice: UILabel!
     @IBOutlet weak var pizzaIngredients: UILabel!
+    @IBOutlet weak var amountTextView: UITextField!
     
     var delegate: PizzaCellViewDelegate?
     var pizzaModel: PizzaModel?
@@ -23,7 +24,9 @@ class PizzaCellView: UITableViewCell {
     
     @IBAction func orderButtonPressed(_ sender: Any) {
         guard let pizzaModel = pizzaModel else { return }
-        delegate?.presentOrder(with: pizzaModel)
+        guard let amountText = amountTextView.text else { return }
+        guard let pizzaAmount = Double(amountText) else { return }
+        delegate?.presentOrder(with: pizzaModel, and: pizzaAmount)
     }
     
     func loadPizza(with pizzaModel: PizzaModel) {
@@ -50,5 +53,5 @@ class PizzaCellView: UITableViewCell {
 
 protocol PizzaCellViewDelegate {
     
-    func presentOrder(with pizza: PizzaModel)
+    func presentOrder(with pizza: PizzaModel, and amount: Double)
 }

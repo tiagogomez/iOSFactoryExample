@@ -18,9 +18,12 @@ class PizzaViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         configureTableView()
         self.title = "Pizzeria Ceiba"
+        let tap = UITapGestureRecognizer(target: self,
+                                         action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        super.viewDidLoad()
     }
     
     private func configureTableView() {
@@ -30,6 +33,10 @@ class PizzaViewController: UIViewController {
         tableView.register(pizzaCellNib, forCellReuseIdentifier: "PizzaView")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 105
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
@@ -52,9 +59,10 @@ extension PizzaViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension PizzaViewController: PizzaCellViewDelegate {
     
-    func presentOrder(with pizza: PizzaModel) {
+    func presentOrder(with pizza: PizzaModel, and amount: Double) {
+        let cost = pizza.getCost() * amount
         let alert = UIAlertController(title: pizza.pizzaName,
-                                      message: "\(pizza.getIngredients()) \nCosto: $\(pizza.getCost())",
+                                      message: "\(pizza.getIngredients()) \nCosto: $\(cost)",
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Aceptar",
                                       style: .default,
