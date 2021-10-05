@@ -96,8 +96,8 @@
 		4D27BC1126FB8B4D001B6144 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				4D27BC1F26FBA9B1001B6144 /* Creator */,
 				4D27BC1E26FBA999001B6144 /* Product */,
+				4D27BC1F26FBA9B1001B6144 /* Creator */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
